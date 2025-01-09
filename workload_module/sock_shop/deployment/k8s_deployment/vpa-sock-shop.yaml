@@ -1,0 +1,20 @@
+apiVersion: vpa.io/v1
+kind: VerticalPodAutoscaler
+metadata:
+  name: front-end-vpa
+spec:
+  targetRef:
+    apiVersion: "apps/v1"
+    kind:       "Deployment"
+    name:       "front-end"
+  updatePolicy:
+    updateMode: "Auto"
+  resourcePolicy:
+    containerPolicies:
+      - containerName: 'front-end'
+        controlledResources:
+          - cpu
+        maxAllowed:
+          cpu: "5"
+        minAllowed:
+          cpu: "100m"
